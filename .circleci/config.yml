@@ -56,7 +56,7 @@ workflows:
             - build
           filters:
             tags:
-              only: /^config-test.*/
+              only: /^stage-.*/
             branches:
               ignore: /.*/
       - deploy_production:
