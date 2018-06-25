@@ -55,10 +55,10 @@ workflows:
           requires:
             - build
           filters:
+            tags:
+              only: /^config-test.*/
             branches:
               ignore: /.*/
-            tags:
-              only: /^stage-*/
       - deploy_production:
           requires:
             - build
