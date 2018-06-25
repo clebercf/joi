@@ -28,7 +28,19 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: npm test
-
+  deploy:
+    stage:
+      tag: /stage-.*/
+      commands:
+        - ./deploy-stage.sh
+    production:
+      tag: /production-.*/
+      commands:
+        - ./deploy-production.sh
+    pilot:
+      tag: /pilot-.*/
+      commands:
+        - ./deploy-pilot.sh
 workflows:
   version: 2
   build-and-deploy:
@@ -37,6 +49,3 @@ workflows:
       - deploy:
           requires:
             - build
-          filters:
-            branches:
-              only: stage
