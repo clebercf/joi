@@ -9,7 +9,7 @@ jobs:
           BURZUM_PORT: 5030
           BURZUM_HOST: tcp.burzum.appsluiza.com.br
           MYSQL_USER: ubuntu
-          MYSQL_PASSWORD: ''
+          MYSQL_ROOT_PASSWORD: ''
           MYSQL_DATABASE: circle_test
           MYSQL_PORT: 3306
           MYSQL_HOST: 127.0.0.1
