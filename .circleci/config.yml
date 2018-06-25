@@ -54,6 +54,16 @@ workflows:
       - deploy_stage:
           requires:
             - build
+          filters:
+            tags:
+              only: /stage-.*/
+            branches:
+              ignore: /.*/
       - deploy_production:
           requires:
             - build
+          filters:
+            tags:
+              only: /production-.*/
+            branches:
+              ignore: /.*/
