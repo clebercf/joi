@@ -1,0 +1,41 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:8.4.0
+      - image: mysql:5.7
+        command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_bin --innodb-large-prefix=true --innodb-file-format=Barracuda
+        environment:
+          BURZUM_PORT: 5030
+          BURZUM_HOST: tcp.burzum.appsluiza.com.br
+          MYSQL_USER: ubuntu
+          MYSQL_PASSWORD: ''
+          MYSQL_DATABASE: circle_test
+          MYSQL_PORT: 3306
+          MYSQL_HOST: 127.0.0.1
+          HARVEY_HOST: http://example.com
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-
+      - run: npm install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - run: npm test
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: stage
