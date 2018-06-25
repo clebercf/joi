@@ -58,7 +58,7 @@ workflows:
             branches:
               ignore: /.*/
             tags:
-              only: /^stage-.*/
+              only: /^stage-*/
       - deploy_production:
           requires:
             - build
