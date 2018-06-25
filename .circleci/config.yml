@@ -54,17 +54,17 @@ workflows:
           filters:
             tags:
               only: /^config-test.*/
-      - test:
+      - deploy_stage:
           requires:
             - build
           filters:
             tags:
               only: /^config-test.*/
-      - deploy:
+      - deploy_production:
           requires:
             - test
           filters:
             tags:
-              only: /^config-test.*/
+              only: /^config-prod.*/
             branches:
               ignore: /.*/
